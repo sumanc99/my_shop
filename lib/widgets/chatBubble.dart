@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_shop/models/sales_entry.dart';
+import 'package:intl/intl.dart';
 
 // widget for single sale entry
 class Chatbubble extends StatelessWidget{
@@ -10,6 +11,10 @@ class Chatbubble extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
+    //Get the current locale from context
+    final String currentLocale = Localizations.localeOf(context).toString();
+    //Create the formatter with the current locale
+    final NumberFormat decimalFormatter = NumberFormat.decimalPattern(currentLocale);
     return Align(
       // aling the entry like chat
        alignment: Alignment.centerRight,
@@ -34,7 +39,7 @@ class Chatbubble extends StatelessWidget{
               ),
               if(entry.extractedAmount > 0)
                 Text(
-                  'Amount: ₦${entry.extractedAmount.toStringAsFixed(2)}',
+                  'Amount: ₦${decimalFormatter.format(entry.extractedAmount)}',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey[600],
