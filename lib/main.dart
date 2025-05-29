@@ -1,8 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:my_shop/screens/home_screen.dart';
 import 'package:my_shop/theme/app_theme.dart';
-void main() {
-  runApp(const MyApp());
+
+// hive and provider
+ // importing why to access hive
+  import 'package:hive_flutter/hive_flutter.dart';
+  import 'package:provider/provider.dart';
+  // the structure and adapter for my data model
+  import 'package:my_shop/models/sale.dart';
+  // // the provider for my data model
+  import 'package:my_shop/providers/sale_provider.dart';
+
+void main() async {
+  // let make sure the flutter engine is ready
+  WidgetsFlutterBinding.ensureInitialized();
+   try {
+      await Hive.initFlutter();
+      Hive.registerAdapter(SaleAdapter());
+      await Hive.openBox<Sale>('sales');
+    } catch (e) {
+      // print('Error initializing Hive: $e');
+    }
+  runApp(
+      MultiProvider(
+        providers:[
+          ChangeNotifierProvider(create: (_) => SalesProvider()),
+        ],
+        child: const MyApp(),
+      ),
+
+    // const MyApp()
+  );
 }
 
 class MyApp extends StatelessWidget {

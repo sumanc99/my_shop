@@ -78,12 +78,12 @@ Map<String, dynamic>? extract_product_info(String input){
     if (item != null && priceStr != null) {
       // hold the values of price and qunatity
        final double price = double.parse(priceStr);
-       double quantity = 1; // default
+       int quantity = 1; // default
 
       // check if quantity is not empty
       if (quantityStr != null) {
         // assing the value if not empty
-        final double qtyParsed = double.parse(quantityStr);
+        final int qtyParsed = int.parse(quantityStr);
         // swap if quantity was probably mistaken for price
         if (qtyParsed > price) {
           // return a full map if all 3 are present

@@ -1,7 +1,9 @@
 // lib/screens/home_page.dart (or wherever MyHomePage is)
 import 'package:flutter/material.dart';
+import 'package:my_shop/screens/saleHistory_screen.dart';
 import "package:my_shop/widgets/SectionCard.dart";
 import 'package:my_shop/screens/sale_screen.dart';
+import 'package:my_shop/screens/dailyRecord_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -45,8 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icons.list,
               text: "Daily Record",
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Daily Record tapped!')),
+                final date = DateTime.now();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => DailyRecordView(selectedDate: date,)),
                 );
               },
             ),
@@ -55,8 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icons.history,
               text: "Sale History",
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Sale History tapped!')),
+               Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => SaleHistoryView()),
                 );
               },
             ),
