@@ -47,13 +47,15 @@ class _SaleScreenState extends State<SaleScreen> {
         final double amount_sale = price * quantity;
         amount = amount_sale;
 
+        final String key = DateTime.now().millisecondsSinceEpoch.toString();
+
         final item = Sale(
           product: product_name,
           amount: amount_sale,
           date: DateTime.now(),
-          qunatity: quantity.toString(),
+          quantity: quantity.toString(),
         );
-        final String key = DateTime.now().millisecondsSinceEpoch.toString();
+
         _sales_obj[key] = item;
         _sales_list.add(item);
       } catch (e) {
@@ -74,29 +76,30 @@ class _SaleScreenState extends State<SaleScreen> {
     });
   }
 
-  // --- New method to handle deleting a sales entry ---
-  void _deleteSaleEntry(int index) {
-    setState(() {
+void _deleteSaleEntry(int index) {
+  setState(() {
+    // Check if index is valid for _saleEntries
+    if (index >= 0 && index < _saleEntries.length) {
+      // Remove from _saleEntries and update total
       final SaleEntry removedEntry = _saleEntries.removeAt(index);
       _totalSales -= removedEntry.extractedAmount;
 
-      // You might also need to remove the corresponding item from _sales_obj and _sales_list
-      // This part can be tricky if there's no direct mapping/key
-      // For simplicity, I'm just showing _saleEntries and _totalSales update.
-      // If _sales_obj and _sales_list need to be perfectly in sync,
-      // you'll need a more robust way to identify and remove the associated Sale objects.
-      // One way is to store a unique ID in SaleEntry that links to Sale and _sales_obj key.
+      // Remove from _sales_list if index is valid
+      if (index >= 0 && index < _sales_list.length) {
+        final Sale removedSale = _sales_list.removeAt(index);
 
-      // If _sales_list and _sales_obj are directly derived from _saleEntries and match its order:
-      if (index < _sales_list.length) {
-        _sales_list.removeAt(index);
+        // Remove from _sales_obj by finding the matching Sale object
+        final String? keyToRemove = _sales_obj.keys.firstWhere(
+          (key) => _sales_obj[key] == removedSale,
+          orElse: () => null,
+        );
+        if (keyToRemove != null) {
+          _sales_obj.remove(keyToRemove);
+        }
       }
-      // Removing from _sales_obj is more complex as it's a map.
-      // You'd need to find the key associated with the removed entry.
-      // If each SaleEntry had a unique ID that was also the key in _sales_obj, it would be easy.
-    });
-  }
-
+    }
+  });
+}
   void _resetEntries() {
     setState(() {
       _saleEntries.clear();

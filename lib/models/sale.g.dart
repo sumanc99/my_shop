@@ -20,7 +20,7 @@ class SaleAdapter extends TypeAdapter<Sale> {
       product: fields[0] as String,
       amount: fields[1] as double,
       date: fields[2] as DateTime,
-      qunatity: fields[3] as String,
+      quantity: fields[3] as String,
     );
   }
 
@@ -35,7 +35,7 @@ class SaleAdapter extends TypeAdapter<Sale> {
       ..writeByte(2)
       ..write(obj.date)
       ..writeByte(3)
-      ..write(obj.qunatity);
+      ..write(obj.quantity);
   }
 
   @override

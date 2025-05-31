@@ -121,7 +121,7 @@ class _DailyRecordViewState extends State<DailyRecordView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            formatQuantity(half_checker(sale.qunatity)),
+                            formatQuantity(half_checker(sale.quantity)),
                             style: const TextStyle(fontSize: 18),
                           ),Text(
                             sale.product,

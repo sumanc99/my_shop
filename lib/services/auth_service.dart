@@ -7,12 +7,19 @@ class AuthService {
   static const String _shopNameKey = 'shopName';
   static const String _hashedPasswordKey = 'hashedPassword';
 
-  static Future<void> init() async {
-    // Ensure Hive is initialized before opening the box
+ // lib/services/auth_service.dart
+static Future<void> init() async {
+  try {
     if (!Hive.isBoxOpen(_authBoxName)) {
       await Hive.openBox<String>(_authBoxName);
     }
+  } catch (e) {
+    // Handle the error gracefully, maybe log it or show a user-friendly message
+    print('Error opening auth box: $e');
+    // Depending on your app's needs, you might want to re-throw,
+    // or show an error screen and prevent app usage until resolved.
   }
+}
 
   static Future<void> register({
     required String shopName,

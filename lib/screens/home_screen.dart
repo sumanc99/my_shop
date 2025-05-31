@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         rows.add([
           formattedDate,
           sale.product,
-          _formatQuantityForCsv(sale.qunatity), // Helper for quantity
+          _formatQuantityForCsv(sale.quantity), // Helper for quantity
           sale.amount.toStringAsFixed(2) // Format amount to 2 decimal places
         ]);
       }

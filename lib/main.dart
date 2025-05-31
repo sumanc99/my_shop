@@ -32,7 +32,7 @@ void main() async {
     await Hive.openBox<Sale>('sales');
     await AuthService.init(); // Initialize the auth box via AuthService
   } catch (e) {
-    print('Error initializing Hive: $e');
+    // print('Error initializing Hive: $e');
     // Consider adding a graceful error handling here, e.g., showing an error dialog
     // and exiting the app, or continuing with limited functionality.
   }
