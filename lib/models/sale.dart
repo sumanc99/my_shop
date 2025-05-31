@@ -9,6 +9,7 @@ class Sale extends HiveObject{
     required this.product,
     required this.amount,
     required this.date,
+    required this.qunatity,
   });
 
   @HiveField(0) 
@@ -20,8 +21,8 @@ class Sale extends HiveObject{
   @HiveField(2)
   DateTime date;
   
-  // @HiveField(3)
-  // String time;
+  @HiveField(3)
+  String qunatity;
 
 
 }

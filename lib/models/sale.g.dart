@@ -20,19 +20,22 @@ class SaleAdapter extends TypeAdapter<Sale> {
       product: fields[0] as String,
       amount: fields[1] as double,
       date: fields[2] as DateTime,
+      qunatity: fields[3] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Sale obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.product)
       ..writeByte(1)
       ..write(obj.amount)
       ..writeByte(2)
-      ..write(obj.date);
+      ..write(obj.date)
+      ..writeByte(3)
+      ..write(obj.qunatity);
   }
 
   @override

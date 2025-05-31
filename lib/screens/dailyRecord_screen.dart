@@ -24,6 +24,26 @@ class _DailyRecordViewState extends State<DailyRecordView> {
 
 
 
+  // check if quantity is 0.5 and turn it to 1/2
+  String half_checker(String input){
+    if(input == "0.5"){
+      return "1/2";
+    }
+    
+    return input;
+    
+  }
+
+  // now format the quatity to remove decimal place
+  String formatQuantity(input){
+    if(input == "1/2"){
+      return "1/2";
+    }
+    double parsedDouble = double.parse(input);
+
+
+    return parsedDouble.toInt().toString();
+  }
 
 
   @override
@@ -101,6 +121,9 @@ class _DailyRecordViewState extends State<DailyRecordView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
+                            formatQuantity(half_checker(sale.qunatity)),
+                            style: const TextStyle(fontSize: 18),
+                          ),Text(
                             sale.product,
                             style: const TextStyle(fontSize: 18),
                           ),
